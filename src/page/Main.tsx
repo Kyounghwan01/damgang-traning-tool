@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { getProjectId } from "../common/api";
-import { projectId } from "../common/atom";
+import { projectId, testState } from "../common/atom";
 import { KEY_PROJECT_ID } from "../common/key";
 import FirstList from "../component/FirstList";
 import InputData from "../component/InputData";
@@ -15,6 +15,7 @@ import { Button } from "antd-mobile";
 function Main() {
   const { data } = useQuery(KEY_PROJECT_ID, getProjectId);
   const setProjectId = useSetRecoilState(projectId);
+  const [test, setTest] = useRecoilState(testState);
 
   useEffect(() => {
     if (data) {
@@ -24,6 +25,8 @@ function Main() {
 
   return (
     <>
+      {test}
+      <input value={test} onChange={e => setTest(e.currentTarget.value)} />
       <h1>ProjectId is {data ?? "null"}</h1>
       <FirstList />
       <SecondList />
