@@ -4,6 +4,7 @@ import { errorAtom } from "./common/atom";
 import Router from "./Router";
 
 function App() {
+  // 모든 에러가 여기서 잡힘
   const [error, setError] = useRecoilState(errorAtom);
   const queryClient = useQueryClient();
   queryClient.setDefaultOptions({

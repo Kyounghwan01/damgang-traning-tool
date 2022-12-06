@@ -20,11 +20,17 @@ const localStorageEffect =
 
 export const projectId = atom<ProjectId>({
   key: KEY_PROJECT_ID,
-  effects: [localStorageEffect(KEY_PROJECT_ID)],
+  // effects -> atom이 생성될때 같이 실행되는 sideEffect
+  effects: [localStorageEffect(KEY_PROJECT_ID)]
 });
 
 // 간단히 에러 메세지를 담는다!
 export const errorAtom = atom({
   key: KEY_ERROR,
-  default: [] as string[],
+  default: [] as string[]
+});
+
+export const testState = atom<string>({
+  key: "testString",
+  default: "string입니다"
 });
