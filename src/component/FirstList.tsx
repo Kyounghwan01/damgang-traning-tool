@@ -1,7 +1,7 @@
+import { useEffect, Suspense } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Link, useLocation } from "react-router-dom";
 import { getList, postPersonInList } from "../common/api";
-// import { queryInvalidate } from "../common/helper";
 import { KEY_LIST } from "../common/key";
 import { IList } from "../common/type";
 import { MAIN_PAGE_PATH } from "../Router";
@@ -13,7 +13,8 @@ function FirstList() {
   // const { data, isLoading } = useQuery<IList[], Error, number>( // 세 번째 제네릭 타입으로 select 의 리턴되는 타입을 지정해줄 수 있음
   const { data, isLoading } = useQuery<IList[], Error>( // 세 번째 제네릭 타입으로 select 의 리턴되는 타입을 지정해줄 수 있음
     KEY_LIST,
-    getList
+    getList,
+    { suspense: true }
     // {
     //   select: (data) => {
     //     return data.length;
@@ -21,13 +22,15 @@ function FirstList() {
     // }
   );
 
-  // const { invalidateQueries } = useQueryClient();
+  useEffect(() => {
+    console.log(data, isLoading);
+  }, [data, isLoading]);
+
   const queryCache = useQueryClient();
   const { mutate, isError: isMutateError } = useMutation(postPersonInList, {
     onSuccess: () => {
       console.log("success");
       queryCache.invalidateQueries(KEY_LIST);
-      // invalidateQueries(KEY_LIST);
     },
     onError: error => {
       console.log(error);
@@ -42,9 +45,7 @@ function FirstList() {
     }
   };
 
-  if (isLoading) return <div>isLoading...</div>;
-
-  return isLoading ? null : (
+  return (
     <div>
       <h1>this is FirstList</h1>
       <ul>
@@ -63,7 +64,7 @@ function FirstList() {
       <br />
       {location.pathname !== MAIN_PAGE_PATH && <Link to="/">goMain</Link>}
     </div>
-  ); // Error 시 컴포넌트
+  );
 }
 
 export default FirstList;
