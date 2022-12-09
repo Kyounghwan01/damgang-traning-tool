@@ -1,5 +1,7 @@
 import {useState} from 'react';
 import { Form, Input, Button } from 'antd-mobile'
+import Gnb from '../component/gnb';
+import Header from '../component/header';
 
 const Login = () => {
     const [value, setValue] = useState('')
@@ -7,6 +9,7 @@ const Login = () => {
 
     return (
         <div>
+          <Header/>
         <Form layout='vertical'>
           <Form.Item label='아이디' name='username'>
             <Input placeholder='아이디를 입력해주세요' clearable />
@@ -19,6 +22,7 @@ const Login = () => {
         <Button block color='primary' size='large'>
           로그인
         </Button>
+        <Gnb />
         </div>
 
     )
