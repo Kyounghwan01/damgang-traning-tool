@@ -6,11 +6,12 @@ function sleep(ms: number) {
 }
 
 export async function getList() {
-  return sleep(1000).then(async () => {
-    // const { data } = await axios.get("http://localhost:3001/list");
-    // return data;
-    throw Error("ddddd");
-  });
+  const { data } = await axios.get("http://localhost:3001/list");
+  return data;
+  // return sleep(1000).then(async () => {
+  //   const { data } = await axios.get("http://localhost:3001/list");
+  //   return data;
+  // });
 }
 
 export const postPersonInList = (data: IList) => {

@@ -2,6 +2,8 @@ import { useQueryClient } from "react-query";
 import { useRecoilState } from "recoil";
 import { errorAtom } from "./common/atom";
 import Router from "./Router";
+import { ConfigProvider } from "antd-mobile";
+import koKR from "antd-mobile/es/locales/ko-KR";
 
 function App() {
   // 모든 에러가 여기서 잡힘
@@ -16,13 +18,13 @@ function App() {
     }
   });
   return (
-    <>
+    <ConfigProvider locale={koKR}>
       {error.length !== 0 &&
         error.map((err, index) => {
           return <div key={index}>{err}</div>;
         })}
       <Router />
-    </>
+    </ConfigProvider>
   );
 }
 
